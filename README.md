@@ -42,4 +42,4 @@ Ensure that you have the Java Development Kit (JDK) and Git installed on your ma
 
 Run this into your command prompt / Terminal to clone the repository:
 ```bash
-git clone https://github.com/your-username/circular-linked-list.git
+git clone https://github.com/krsna016/circular-linked-list.git
