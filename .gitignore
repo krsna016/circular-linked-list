@@ -27,3 +27,26 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+# OS Specific Files
+.DS_Store
+Thumbs.db
+
+# Runtime and cache files
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+.next/
+out/
+.venv/
+venv/
+bin/
+obj/
+*.class
+
+# IDE configurations
+.vscode/
+.idea/
+*.swp
