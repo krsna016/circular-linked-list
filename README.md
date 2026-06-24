@@ -1,79 +1,105 @@
-# Circular Linked List: Engineering & Computer Science Reference
+# Data Structures & Algorithms (DSA): Circular Linked List
 
+[![Language: Java](https://img.shields.io/badge/Language-Java_11-ED8B00?logo=java&style=flat-square)]()
+[![Architecture: OOP](https://img.shields.io/badge/Architecture-Object_Oriented-0052CC?style=flat-square)]()
 [![Maintenance: Archived/Educational](https://img.shields.io/badge/Maintenance-Educational-blue.svg?style=flat-square)]()
-[![Code Quality: Staff-Level](https://img.shields.io/badge/Code_Quality-Standardized-3ECF8E?style=flat-square)]()
 
 ## Overview
-This repository serves as a localized reference library for fundamental computer science algorithms, data structures, and automation utilities. It has been strictly audited and standardized to maintain high-quality engineering conventions.
+This repository completes the foundational Linked List trilogy, serving as an enterprise-grade Java implementation of the Circular Linked List data structure. By explicitly linking the tail node's memory pointer back to the head node, it creates a closed, infinite-iteration loop—an essential architecture for continuous data streams and resource scheduling algorithms.
 
 ## Problem Statement
-Software engineers often lose track of fundamental algorithm implementations or foundational language syntaxes as they transition into specialized senior roles. This repository solves that by acting as a hardened, standardized, and easily searchable reference index for core computer science concepts and utility automation.
+Standard Singly and Doubly Linked Lists terminate at a `null` pointer, meaning iteration must halt and mathematically reset to $O(N)$ if the data needs to be traversed again. In systems programming—such as CPU Round-Robin process scheduling or multiplayer turn-based game engines—continuous, non-terminating iteration is mandatory. This repository solves that by implementing an infinitely continuous memory ring.
 
 ## Key Features
-- **Algorithmic Correctness:** Core implementations of critical data structures and algorithms.
-- **Strict Standardization:** Enforces uniform directory structures and markdown formatting across all scripts.
-- **Reference Architecture:** Serves as a historical and educational baseline for future architectural designs.
+- **Infinite Traversal Loop:** Explicit memory manipulation ensuring the Tail node's `next` pointer always resolves to the Head node instead of `null`.
+- **Strict OOP Abstractions:** Decouples the Abstract Data Type (ADT) interface from the concrete `CircularLinkedList` implementation.
+- **$O(1)$ Tail Ingestion:** Architected with optimal constant-time complexity for inserting data at the end of the loop, facilitating high-speed Queue-like behavior.
+- **Isolated Package Structure:** Divided into specific Java subpackages (`adt/`, `node/`, `list/`) to emulate enterprise build environments.
 
 ## Architecture
 
 ```mermaid
-graph TD
-    Root[Repository Root] --> Logic[Core Implementation Files]
-    Root --> Tests[Automated Testing Suites]
-    Logic --> Execution[Runtime Environment]
-    Tests --> CI[Continuous Integration Baseline]
+graph LR
+    ADT[Abstract Data Type Interface] -->|Implements| CLL[CircularLinkedList Class]
+    CLL -->|Manages| Head[Head Pointer]
+    CLL -->|Manages| Tail[Tail Pointer]
+    
+    Head --> Node1
+    Node1 --> Node2
+    Node2 --> NodeN
+    NodeN -->|Infinite Loop: Next = Head| Head
 ```
 
 ## Technology Stack
-- **Language:** Primary syntax (Python, Java, C, or JavaScript) dependent on module.
-- **Testing:** Native unit testing frameworks.
-- **Documentation:** GitHub Flavored Markdown (GFM).
+- **Language:** Java (JDK 11+)
+- **Testing:** Python `unittest` (Javac Wrapper)
+- **Documentation:** GitHub Flavored Markdown (GFM)
 
 ## Project Structure
 ```text
 circular-linked-list/
-├── src/ / main/             # Core logic and algorithm definitions
-├── tests/                   # Baseline integrity tests
+├── src/
+│   ├── adt/                 # Core Interface contracts
+│   ├── node/                # Generic Node payload logic
+│   ├── list/                # Concrete Circular Linked List implementation
+│   └── main/                # Application drivers
+├── tests/                   # Automated compilation verification
 └── README.md                # System documentation
 ```
 
 ## Installation
-Clone the repository to review the architectural patterns:
+Ensure the Java Development Kit (JDK) is installed natively on your OS.
 ```bash
 git clone https://github.com/krsna016/circular-linked-list.git
-cd circular-linked-list
+cd circular-linked-list/src
 ```
 
 ## Usage
-Navigate to the specific module or script and execute using the native compiler or interpreter.
+Compile and execute the specific driver class directly, mapping the sourcepath to resolve cross-package dependencies:
+```bash
+javac -sourcepath . main/Main.java
+java main.Main
+```
 
 ## Examples
-*Executing a standard reference script:*
-```bash
-# Example for Python environments
-python3 main.py
+*Example logical mapping demonstrating the infinite loop closure:*
+```java
+public void insertAtTail(T data) {
+    Node<T> newNode = new Node<>(data);
+    if (head == null) {
+        head = newNode;
+        newNode.next = head; // Point to self (Closed Loop)
+    } else {
+        tail.next = newNode;
+        newNode.next = head; // Point tail back to head (Closed Loop)
+    }
+    tail = newNode;
+}
 ```
 
 ## Screenshots
 > [!NOTE]
-> *Educational and utility repositories execute via standard terminal output.*
+> *Educational algorithms execute via standard terminal output without GUI interactions.*
 
 ## Visual Demonstrations
 > [!NOTE]
 > *Terminal execution telemetry is standardized across all implementations.*
 
 ## Testing
-Baseline structural integrity tests are enforced to ensure that the repository logic can compile and execute without environment configuration errors.
+We utilize a dynamic Python subprocess wrapper to programmatically test `javac` compilation across all Java packages concurrently. This ensures that the deep package-level inheritance and interface contracts compile cleanly without missing dependencies.
+```bash
+python3 -m unittest discover tests/
+```
 
 ## Performance Notes
-- **Algorithmic Time Complexity:** Scripts and data structures within this repository are optimized for O(n) or O(log n) performance baselines where applicable.
+- **Infinite Loop Risk:** Engineers implementing traversing functions (e.g., `printList()`) must implement strict mathematical constraints (like `do-while` loops checking if `current == head`) to avoid catastrophic infinite execution panics.
 
 ## Future Improvements
-- **Containerization:** Wrap reference scripts in isolated Docker containers for immediate cross-platform execution.
-- **CI/CD:** Implement GitHub Actions to run the structural test suites continuously.
+- **Maven/Gradle Integration:** Refactor the repository to utilize a standard `pom.xml` or `build.gradle` file, allowing native integration of JUnit 5 testing frameworks rather than relying on subprocess wrappers.
+- **Round-Robin Simulator:** Implement a CPU scheduling simulator utilizing this Circular Linked List to assign static time-slices to dummy OS processes.
 
 ## Contributing
-This repository is primarily for personal reference and educational archival. Pull Requests fixing Big-O time complexity inefficiencies are welcome.
+This repository is primarily for personal reference and academic archival.
 
 ## License
 Licensed under the MIT License.
